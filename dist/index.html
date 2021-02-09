@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ 6</title>
+    
+    <!-- Стили подключаем через лоадеры вебпака -->
+    <!-- <link rel="stylesheet" href="style/main.css"> -->
+    <!-- Подключение font-awesome -->
+    <script src="https://use.fontawesome.com/3a05ab18ac.js"></script>
+    <!-- версия Vue для разработки, отображает полезные предупреждения в консоли -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div class="tasks">
+        <div class="texttasks">
+            <h3>Задания:</h3>
+            <ol>
+                <li>Вынести поиск в отдельный компонент.</li>
+                <li>Вынести корзину в отдельный компонент.</li>
+                <li>*Создать компонент с сообщением об ошибке. Компонент должен отображаться, когда не удаётся выполнить запрос к серверу.</li>
+            </ol>
+        </div>
+        <div class="answers" id="app">
+            <h3>Результат</h3>
+            <header>
+                <h1>Logo</h1>
+                
+                <div class="search-form">
+                    <input type="text" class="search-field" v-model="searchLine" @keydown="alsoFilter($event)">
+                    <button class="btn-search" @click="filterGoods()">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="basket" @click="showBasket = !showBasket">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <div class="basketContent"> {{ basketContent.amount }} рублей</div>
+                    <div class="basketList" v-if="showBasket">
+                        <p v-if="basketContent.amount == 0">Ваша корзина пуста</p>
+
+                        <div class="basket-item" v-for="elem of basketContent.content" :key="elem.id_product">
+                            <img src="http://placehold.it/50x50">
+                            <b>{{elem.product_name}}</b>
+                            <div class="price">{{elem.quantity}} шт. на {{elem.price*elem.quantity}} рублей</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div id="catalog">
+                <div class="product-item" v-for="product of products" :key="product.id_product" :data-id="product.id_product">
+                    <img src="http://placehold.it/150x200">
+                    <h4>{{product.product_name}}</h4>
+                    <div class="price">{{product.price}} рублей</div>
+                    <button :data-id="product.id_product" class="btnMinus" @click="decrementNum($event)">-</button>
+                    <input :data-id="product.id_product" type="number" name="nunProd" value="1">
+                    <button :data-id="product.id_product" class="btnPlus" @click="incrementNum($event)">+</button><br>
+                    <button :data-id="product.id_product" class="btnBuyIt" @click="putInBasket($event)">Купить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bundle.js"></script>
+</body>
+</html>
