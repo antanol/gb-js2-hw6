@@ -4,6 +4,9 @@ import '../style/main.scss';
 
 const app = new Vue({
     el: '#app',
+    components: {
+        'catalog-page': () => import('./productsComponent.js')
+    },
     data: {
         linkData: {
             catalogData: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json",

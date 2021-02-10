@@ -16,5 +16,11 @@ module.exports = {
         ],
       }
     ]
+  },
+  resolve: {
+    alias: {
+      // Ensure the right Vue build is used
+      'vue$': 'vue/dist/vue.esm.js'
+    }
   }
 };
