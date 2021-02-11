@@ -33,14 +33,12 @@
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
-                <basket></basket>
+                <basket :content="basketContent.content"></basket>
             </header>
             <catalog-page :products="products"></catalog-page>
         </div>
     </div>
 
     <script src="bundle.js"></script>
-    <!-- <script src="../scripts/productsComponent.js"></script>
-    <script src="../scripts/app.js"></script> -->
 </body>
 </html>

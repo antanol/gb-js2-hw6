@@ -32,16 +32,16 @@ Vue.component('product-item', {
             let eventID = Number(event.target.dataset.id);
             let newNum = Number(document.querySelector(`input[data-id="${eventID}"]`).value);
 
-            let alreadyExist = this.$refs.basket.content.find(item => item.id_product == eventID);
+            let alreadyExist = this.$root.basketContent.content.find(item => item.id_product == eventID);
             if (alreadyExist){
                 alreadyExist.quantity += newNum;
-                this.$refs.basket.content.countGoods += newNum;
+                this.$root.basketContent.content.countGoods += newNum;
             }else{
                 let newElem = this.products.find(item => item.id_product == eventID);
                 newElem.quantity = newNum;
-                this.$refs.basket.content.push(newElem);
+                this.$root.basketContent.content.push(newElem);
             };
-            this.checkAmount();
+            this.$root.checkAmount();
         }
     }
 });
