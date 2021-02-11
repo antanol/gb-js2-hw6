@@ -5,7 +5,8 @@ import '../style/main.scss';
 const app = new Vue({
     el: '#app',
     components: {
-        'catalog-page': () => import('./productsComponent.js')
+        'catalog-page': () => import('./productsComponent.js'),
+        'basket': () => import('./basketComponent.js')
     },
     data: {
         linkData: {
@@ -23,44 +24,12 @@ const app = new Vue({
         }
     },
     methods: {
-        putInBasket(event, newElem){
-            let eventID = Number(event.target.dataset.id);
-            let newNum = Number(document.querySelector(`input[data-id="${eventID}"]`).value);
-
-            let alreadyExist = this.basketContent.content.find(item => item.id_product == eventID);
-            if (alreadyExist){
-                alreadyExist.quantity += newNum;
-                this.basketContent.content.countGoods += newNum;
-            }else{
-                let newElem = this.products.find(item => item.id_product == eventID);
-                newElem.quantity = newNum;
-                this.basketContent.content.push(newElem);
-            };
-            this.checkAmount();
-        },
-
         checkAmount(){
             let temp_count = 0;
             for (let elem of this.basketContent.content){
                 temp_count += elem.price * elem.quantity;
             }
             this.basketContent.amount = temp_count;
-        },
-
-        incrementNum(event){
-            let field = document.querySelector(`input[data-id="${event.target.dataset.id}"]`);
-            let currentNum = Number(field.value);
-            currentNum++;
-            field.value = currentNum;
-        },
-
-        decrementNum(event){
-            let field = document.querySelector(`input[data-id="${event.target.dataset.id}"]`);
-            let currentNum = Number(field.value);
-            if (currentNum > 1){
-                currentNum--;
-            }
-            field.value = currentNum;
         },
 
         alsoFilter(event){

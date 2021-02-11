@@ -33,19 +33,7 @@
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
-                <div class="basket" @click="showBasket = !showBasket">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <div class="basketContent"> {{ basketContent.amount }} рублей</div>
-                    <div class="basketList" v-if="showBasket">
-                        <p v-if="basketContent.amount == 0">Ваша корзина пуста</p>
-
-                        <div class="basket-item" v-for="elem of basketContent.content" :key="elem.id_product">
-                            <img src="http://placehold.it/50x50">
-                            <b>{{elem.product_name}}</b>
-                            <div class="price">{{elem.quantity}} шт. на {{elem.price*elem.quantity}} рублей</div>
-                        </div>
-                    </div>
-                </div>
+                <basket></basket>
             </header>
             <catalog-page :products="products"></catalog-page>
         </div>
