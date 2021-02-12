@@ -6,14 +6,14 @@ const app = new Vue({
     el: '#app',
     components: {
         'catalog-page': () => import('./productsComponent.js'),
-        'basket': () => import('./basketComponent.js')
+        'basket': () => import('./basketComponent.js'),
+        'search': () => import('./searchComponent.js')
     },
     data: {
         linkData: {
             catalogData: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json",
             getBasket: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json"
         },
-        searchLine: "",
         filtered: [],
         showBasket: false,
         products: [],
@@ -30,25 +30,6 @@ const app = new Vue({
                 temp_count += elem.price * elem.quantity;
             }
             this.basketContent.amount = temp_count;
-        },
-
-        alsoFilter(event){
-            if (event.keyCode == 13) {
-                this.filterGoods();
-            }
-        },
-
-        filterGoods(){
-            const regexp = new RegExp(this.searchLine, 'i');
-            this.filtered = this.products.filter(product => regexp.test(product.product_name));
-            this.products.forEach(el => {
-                const block = document.querySelector(`.product-item[data-id="${el.id_product}"]`);
-                if(!this.filtered.includes(el)){
-                    block.classList.add('hidden-screen');
-                } else {
-                    block.classList.remove('hidden-screen');
-                }
-            })
         }
     },
     mounted(){

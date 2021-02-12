@@ -1,8 +1,7 @@
 Vue.component('product-item', {
-    // name: 'product-item',
-    props: ['item'], 
+    props: ['item', 'my_id'], 
     template: `
-        <div class="product-item" :data-id="item.product_id">
+        <div class="product-item" :data-id="my_id">
             <img src="http://placehold.it/150x200">
             <h4>{{item.product_name}}</h4>
             <div class="price">{{item.price}} рублей</div>
@@ -47,14 +46,14 @@ Vue.component('product-item', {
 });
 
 export default Vue.component('catalog-page', {
-    // name: 'catalogPage',
     props: ['products'], 
     template: `
         <div id="catalog">
             <product-item 
                 v-for="product of products" 
                 :key="product.id_product" 
-                :item="product">
+                :item="product"
+                :my_id="product.id_product">
             </product-item>
         </div>`
 });
