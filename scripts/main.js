@@ -7,7 +7,8 @@ const app = new Vue({
     components: {
         'catalog-page': () => import('./productsComponent.js'),
         'basket': () => import('./basketComponent.js'),
-        'search': () => import('./searchComponent.js')
+        'search': () => import('./searchComponent.js'),
+        'error': () => import('./errorComponent.js')
     },
     data: {
         linkData: {
@@ -21,7 +22,10 @@ const app = new Vue({
             amount: 0,
             countGoods: 0,
             content: []
-        }
+        },
+
+        errorExist: false,
+        errorText: ""
     },
     methods: {
         checkAmount(){
@@ -42,8 +46,9 @@ const app = new Vue({
                     this.products = [...data];
                 })
             })
-            .catch(error => {
-                document.querySelector('.catalog').innerHTML = `<h1>Что-то пошло не так...</h1> Простите, но мы не смогли найти товары. Пожалуйста, зайдите позже!`
+            .catch(err => {
+                this.errorExist = true;
+                this.errorText = `Что-то пошло не так... Простите, но мы не смогли найти товары. Пожалуйста, зайдите позже!`
             });
 
         fetch(this.linkData.getBasket)

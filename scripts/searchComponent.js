@@ -24,13 +24,17 @@ export default Vue.component('search', {
             this.$root.filtered = this.$root.products.filter(product => regexp.test(product.product_name));
             this.$root.products.forEach(el => {
                 const block = document.querySelector(`.product-item[data-id="${el.id_product}"]`);
-                console.log(`.product-item[data-id="${el.id_product}"]`);
+
                 if(!this.$root.filtered.includes(el)){
                     block.classList.add('hidden-screen');
                 } else {
                     block.classList.remove('hidden-screen');
                 }
-            })
+            });
+            if (this.$root.filtered.length == 0){
+                this.$root.errorExist = true;
+                this.$root.errorText = `Простите, мы ничего не нашли`;
+            }
         }
     }
 });
